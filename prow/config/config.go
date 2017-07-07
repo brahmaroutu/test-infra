@@ -36,8 +36,9 @@ type Config struct {
 	// Periodics are not associated with any repo.
 	Periodics []Periodic `json:"periodics,omitempty"`
 
-	Plank    Plank     `json:"plank,omitempty"`
-	Triggers []Trigger `json:"triggers,omitempty"`
+	Plank       Plank        `json:"plank,omitempty"`
+	Triggers    []Trigger    `json:"triggers,omitempty"`
+	SlackEvents []SlackEvent `json:"slackevents,omitempty"`
 }
 
 // Plank is config for the plank controller.
@@ -64,6 +65,14 @@ type Trigger struct {
 	// TrustedOrg is the org whose members' PRs will be automatically built
 	// for PRs to the above repos.
 	TrustedOrg string `json:"trusted_org,omitempty"`
+}
+
+// SlackEvent is config for the slackevents plugin.
+type SlackEvent struct {
+	// Repos is either of the form org/repos or just org.
+	Repos     []string `json:"repos,omitempty"`
+	Channels  []string `json:"channels,{\"sig-contribex\",\"kubernetes-dev\"}"`
+	WhiteList []string `json:"whitelist,{\"k8s-merge-robot\"}"`
 }
 
 // Load loads and parses the config at path.

@@ -24,6 +24,10 @@ import (
 	"net/url"
 )
 
+type SlackClient interface {
+	WriteMessage(text string, channel string) error
+}
+
 // Client allows you to provide connection to Slack API Server
 // It contains a token that allows to authenticate connection to post and work with channels in the domain
 type Client struct {
@@ -88,14 +92,14 @@ type ChannelList struct {
 }
 
 // NewClient creates a slack client with an API token.
-func NewClient(token string) *Client {
+func NewClient(token string) SlackClient {
 	return &Client{
 		token: token,
 	}
 }
 
 // NewFakeClient returns a client that takes no actions.
-func NewFakeClient() *Client {
+func NewFakeClient() SlackClient {
 	return &Client{
 		fake: true,
 	}

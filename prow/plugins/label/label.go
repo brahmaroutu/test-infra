@@ -25,6 +25,7 @@ import (
 
 	"k8s.io/test-infra/prow/github"
 	"k8s.io/test-infra/prow/plugins"
+	"k8s.io/test-infra/prow/slack"
 )
 
 const pluginName = "label"
@@ -142,7 +143,7 @@ func (ae assignEvent) getRepeats(sigMatches [][]string, existingLabels map[strin
 	return
 }
 
-func handle(gc githubClient, log *logrus.Entry, ae assignEvent, sc slackClient) error {
+func handle(gc githubClient, log *logrus.Entry, ae assignEvent, sc slack.SlackClient) error {
 	// only parse newly created comments/issues/PRs and if non bot author
 	if ae.login == gc.BotName() || !(ae.action == "created" || ae.action == "opened") {
 		return nil

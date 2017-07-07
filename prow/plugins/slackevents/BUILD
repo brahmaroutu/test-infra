@@ -10,26 +10,29 @@ load(
 
 go_test(
     name = "go_default_test",
-    srcs = ["label_test.go"],
+    srcs = ["push_test.go"],
     library = ":go_default_library",
     tags = ["automanaged"],
     deps = [
+        "//prow/config:go_default_library",
         "//prow/github:go_default_library",
-        "//prow/github/fakegithub:go_default_library",
+        "//prow/plugins:go_default_library",
+        "//prow/slack:go_default_library",
         "//prow/slack/fakeslack:go_default_library",
-        "//vendor:github.com/Sirupsen/logrus",
     ],
 )
 
 go_library(
     name = "go_default_library",
-    srcs = ["label.go"],
+    srcs = [
+        "push.go",
+        "slackevents.go",
+    ],
     tags = ["automanaged"],
     deps = [
+        "//prow/config:go_default_library",
         "//prow/github:go_default_library",
         "//prow/plugins:go_default_library",
-        "//prow/slack:go_default_library",
-        "//vendor:github.com/Sirupsen/logrus",
     ],
 )
 

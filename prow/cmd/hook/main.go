@@ -41,6 +41,7 @@ import (
 	_ "k8s.io/test-infra/prow/plugins/lgtm"
 	_ "k8s.io/test-infra/prow/plugins/releasenote"
 	_ "k8s.io/test-infra/prow/plugins/reopen"
+	_ "k8s.io/test-infra/prow/plugins/slackevents"
 	_ "k8s.io/test-infra/prow/plugins/trigger"
 	_ "k8s.io/test-infra/prow/plugins/update_config"
 	_ "k8s.io/test-infra/prow/plugins/yuks"
@@ -67,7 +68,7 @@ func main() {
 	var webhookSecret []byte
 	var githubClient *github.Client
 	var kubeClient *kube.Client
-	var slackClient *slack.Client
+	var slackClient slack.SlackClient
 	if *local {
 		logrus.Warning("Running in local mode for dev only.")
 

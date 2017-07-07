@@ -59,6 +59,7 @@ type CombinedStatus struct {
 type User struct {
 	Login string `json:"login"`
 	Name  string `json:"name"`
+	Email string `json:"email"`
 }
 
 // PullRequestEvent is what GitHub sends us when a PR is changed.
@@ -196,7 +197,10 @@ type PushEvent struct {
 	Ref     string   `json:"ref"`
 	Before  string   `json:"before"`
 	After   string   `json:"after"`
+	Compare string   `json:"compare"`
 	Commits []Commit `json:"commits"`
+	Pusher  User     `json:"pusher"`
+	Sender  User     `json:"sender"`
 	Repo    Repo     `json:"repository"`
 }
 
